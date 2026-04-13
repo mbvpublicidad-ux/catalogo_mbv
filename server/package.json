@@ -1,0 +1,35 @@
+{
+	"name": "server",
+	"version": "1.0.0",
+	"description": "universal catalog software",
+	"keywords": [
+		"catalog"
+	],
+	"license": "MIT",
+	"author": "Oscar",
+	"type": "module",
+	"main": "index.js",
+	"scripts": {
+		"test": "jest",
+		"start": "node index.js",
+		"dev": "nodemon index.js"
+	},
+	"dependencies": {
+		"@apollo/server": "^5.0.0",
+		"@as-integrations/express5": "^1.1.2",
+		"@graphql-tools/merge": "^9.1.1",
+		"@graphql-tools/schema": "^10.0.25",
+		"bcryptjs": "^3.0.2",
+		"cloudinary": "^2.7.0",
+		"cors": "^2.8.5",
+		"dotenv": "^17.2.2",
+		"express": "^5.1.0",
+		"graphql": "^16.11.0",
+		"graphql-tag": "^2.12.6",
+		"jsonwebtoken": "^9.0.2",
+		"mongoose": "^8.18.1"
+	},
+	"devDependencies": {
+		"nodemon": "^3.1.10"
+	}
+}

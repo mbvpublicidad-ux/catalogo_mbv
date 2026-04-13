@@ -1,0 +1,57 @@
+---
+deployment:
+  tasks:
+    - /bin/rm -rf /home/importacionesmbv/public_html/index.html
+    - /bin/rm -rf /home/importacionesmbv/public_html/assets
+    - /bin/rm -rf /home/importacionesmbv/public_html/dist
+    - /bin/rm -f /home/importacionesmbv/public_html/.htaccess
+
+    - /bin/cp -R /home/importacionesmbv/repositories/importacionesmbv/dist/* /home/importacionesmbv/public_html/
+
+    - /bin/chmod -R 755 /home/importacionesmbv/public_html
+
+    - |
+      /bin/cat > /home/importacionesmbv/public_html/.htaccess << 'EOF'
+      # MIME types para módulos JavaScript
+      <IfModule mod_mime.c>
+        AddType application/javascript .js
+        AddType application/javascript .mjs
+        AddType text/css .css
+        AddType application/json .json
+      </IfModule>
+
+      # Rewrite para React Router (SPA)
+      <IfModule mod_rewrite.c>
+        RewriteEngine On
+        RewriteBase /
+        RewriteRule ^index\.html$ - [L]
+        RewriteCond %{REQUEST_FILENAME} !-f
+        RewriteCond %{REQUEST_FILENAME} !-d
+        RewriteRule . /index.html [L]
+      </IfModule>
+
+      # Compresión GZIP
+      <IfModule mod_deflate.c>
+        AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css text/javascript application/javascript application/json
+      </IfModule>
+
+      # Cache para archivos estáticos
+      <IfModule mod_expires.c>
+        ExpiresActive On
+        ExpiresByType image/jpg "access plus 1 year"
+        ExpiresByType image/jpeg "access plus 1 year"
+        ExpiresByType image/gif "access plus 1 year"
+        ExpiresByType image/png "access plus 1 year"
+        ExpiresByType image/svg+xml "access plus 1 year"
+        ExpiresByType image/webp "access plus 1 year"
+        ExpiresByType text/css "access plus 1 month"
+        ExpiresByType application/javascript "access plus 1 month"
+        ExpiresByType application/font-woff "access plus 1 year"
+        ExpiresByType application/font-woff2 "access plus 1 year"
+      </IfModule>
+
+      # Seguridad
+      <IfModule mod_headers.c>
+        Header set X-Content-Type-Options "nosniff"
+      </IfModule>
+      EOF

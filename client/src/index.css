@@ -1,0 +1,123 @@
+@import "tailwindcss";
+
+.dark-theme {
+	--color-main: #02243d;
+	--color-first: #ffffff;
+	--color-second: #000000;
+	--color-third: rgb(190, 190, 190);
+}
+
+.light-theme {
+	--color-main: #ffffff;
+	--color-first: #02243d;
+	--color-second: #b2b6be;
+	--color-third: rgb(53, 53, 53);
+}
+
+@theme {
+	--color-main: var(--color-main);
+	--color-first: var(--color-first);
+	--color-second: var(--color-second);
+	--color-third: var(--color-third);
+
+	--color-error: oklch(59.676% 0.23957 19.681);
+	--color-error-secondary: oklch(70.4% 0.191 22.216);
+	--color-success: oklch(62.7% 0.194 149.214);
+}
+
+body {
+	background: var(--color-main);
+}
+
+::-webkit-scrollbar {
+	width: 13px;
+}
+
+::-webkit-scrollbar-track {
+	background: var(--color-main);
+	border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+	border-radius: 10px;
+	border: 3px solid var(--color-first);
+}
+
+.animate-border-pulse {
+	animation: border-pulse 2.5s ease-out infinite;
+}
+
+.animate-progress-bar {
+	animation: progress-bar 3s linear;
+}
+
+.animate-slide-in {
+	animation: slide-in 0.4s ease-out;
+}
+
+.animate-slide-out {
+	animation: slide-in 0.4s ease-in reverse;
+}
+
+.animate-slide-up {
+	animation: slide-up 0.8s ease-out;
+}
+
+.animate-fade-in {
+	animation: fade-in 1s ease-out;
+}
+
+@keyframes fade-in {
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
+}
+
+@keyframes border-pulse {
+	0% {
+		transform: scale(1);
+		opacity: 0.25;
+	}
+	50% {
+		transform: scale(1.05);
+		opacity: 0.5;
+	}
+	100% {
+		transform: scale(1);
+		opacity: 0.25;
+	}
+}
+
+@keyframes progress-bar {
+	from {
+		width: 100%;
+	}
+	to {
+		width: 0%;
+	}
+}
+
+@keyframes slide-up {
+	from {
+		opacity: 0;
+		transform: translateY(100%);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+@keyframes slide-in {
+	from {
+		opacity: 0;
+		transform: translateX(100%);
+	}
+	to {
+		opacity: 1;
+		transform: translateX(0);
+	}
+}

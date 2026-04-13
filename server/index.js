@@ -28,12 +28,9 @@ if (!process.env.JWT_SECRET) {
 	process.exit(1);
 }
 
-app.use(
-	cors({
-		origin: "*", // Cambiar en producción a tu dominio específico
-		credentials: true,
-	})
-);
+app.use(cors());
+
+app.options("*", cors());
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -83,7 +80,7 @@ app.get("/health", (req, res) => {
 						try {
 							const decodedToken = jwt.verify(
 								token.replace("Bearer ", ""),
-								process.env.JWT_SECRET
+								process.env.JWT_SECRET,
 							);
 							const user = await User.findById(decodedToken.userId);
 							if (!user) throw new Error("User not found");
@@ -95,7 +92,7 @@ app.get("/health", (req, res) => {
 					}
 					return { user: null, res };
 				},
-			})
+			}),
 		);
 
 		console.log("🎧 Starting HTTP server...");
@@ -103,7 +100,7 @@ app.get("/health", (req, res) => {
 			httpServer.listen(serverPort, "0.0.0.0", () => {
 				console.log(`✅ Server running on port: ${serverPort}`);
 				console.log(
-					`🔗 GraphQL endpoint: http://0.0.0.0:${serverPort}/graphql`
+					`🔗 GraphQL endpoint: http://0.0.0.0:${serverPort}/graphql`,
 				);
 				console.log(`🏥 Health check: http://0.0.0.0:${serverPort}/health`);
 				console.log(`🌐 Server is ready to accept connections`);
